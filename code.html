@@ -1,0 +1,706 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+       margin: 0px;
+       padding: 0px;
+      }
+    </style>
+  </head>
+	<body onload="hideElem1()">
+	<div id="container" style="width:1000px;">
+	<div id="header" style="background-color:#FFD700;">
+	<h1 style="margin-bottom:0;"><center>Cyclic Quadrilateral Theorem</center></h1></div>
+<div id="menu" style="background-color:#FFD700;height:400px;width:200px;float:left;padding-left:20px "><h3>Objective</h3>
+
+<h4>To verify, using the method of paper cutting,pasting and folding that</h4>
+<h4>1. The sum of either pair of opposite angles of a cyclic quadrilateral is 180.</h4>
+<h4>2.In a cyclic quadriletral the exterior angle is equal to the interior opposite angle.</h4>
+<h3>Instructions</h3>
+<h4>1.Click draw button to make circle.</h4></br>
+<button type="button" id="drcircle" onclick="drawcircle()">Draw Circle!</button></br>
+<button type="button" id="next" onclick="hideElem()" >Next</button></br>
+<button type="button" id="instruction"  onclick="Instruction()" >Instructions</button>
+</div>
+<div id="menu1" style="background-color:#FFD700;height:400px;width:200px;float:right; padding-left:20px">
+
+<button type="button" id="replica" onclick="drawQuadiretral()">Replica</button><br/>
+<button type="button" id="color" onclick="cutOut()" >Cutouts</button><br/>
+<button type="button" id="observation" onclick="Observation()" >Observation</button><br/>
+<button type="button" id="rttquad" onclick="rotatequadriletral()" >RotateQuadriletral-A</button>
+<button type="button" id="rttquad1" onclick="rotatequadriletral1()" >RotateQuadriletral-C</button>
+</div>
+
+
+<div id="container1" style="width:1000px ; background-color:#3b5998;" ></div>
+  
+	<script src="project1.js"></script>
+	
+	<script defer="defer">
+var stage =new Kinetic.Stage(
+	{
+		container:'container1',
+		x : 120,  //    
+		y: 40,
+		width:550,
+		height:600,
+		fill:'#ff0000',
+	});
+	
+	var layer= new Kinetic.Layer();
+		var rect1=new Kinetic.Rect({
+		width:300,
+		height:250,
+		stroke:'black',
+		strokeWidth:8,
+		opacity:0.8,
+		fill:'#fffFFF'
+	
+	});
+
+	layer.add(rect1);
+	stage.add(layer);
+</script>
+<script type="text/javascript">
+	var layer1=null;
+	var layer2=null;
+	var layer3=null;
+	var i=1;
+	var j=1;
+	var circle=null;
+	var rect=null;
+	var rad=null;
+	var count=0;
+	var a1;
+	var a2;
+	var b1;
+	var b2;
+	var a3;
+	var b3;
+	var count1=0;
+	var centre1=null;
+	var point=null;
+	var point1=null;
+	var point2=null;
+	var tricount=0;
+	var triangle1=null;
+	var triangle2=null;
+	var flag=0;
+	var cutoutmidpoint=null;	// midpoint of cut outs
+	var M1=null;
+	var M2=null;
+	var M3=null;
+	var M4=null;
+	var M11=null;
+	var M12=null;
+	var M21=null;
+	var M22=null;
+	var M31=null;
+	var M32=null;
+	var M41=null;
+	var M42=null;
+	var CL1=null; //point of  midpoint the centerline
+	var CL2=null;
+	var group2=null;
+	var group4=null;
+	var smallquadriletral1=null;
+		var sheet = null;
+	function rotatequadriletral()
+	{
+		group2.rotate(Math.PI /0.042);
+		stage.add(layer2);
+	
+	}
+	function rotatequadriletral1()
+	{
+		group4.rotate(Math.PI /0.042);
+		stage.add(layer2);
+	}
+	function cutOut()
+	{
+	 sheet = new Kinetic.Rect({
+        x: 10,
+        y: 350,
+        stroke: '#555',
+        strokeWidth: 5,
+        fill: 'white',
+        width: 300,
+        height:200,
+       
+      });
+		
+
+	
+	
+	
+	M11=(a1+a2)/2;
+	M12=(b1+b2)/2;
+	M21=(a2+a3)/2;
+	M22=(b2+b3)/2;
+	M31=(a3+a4)/2;
+	M32=(b3+b4)/2;
+	M41=(a4+a1)/2;
+	M42=(b4+b1)/2;
+	CL1=((a1+a2)/2 + (a3+a4)/2)/2;
+	CL2=((b1+b2)/2 + (b3+b4)/2)/2 ;
+	
+	var group1 = new Kinetic.Group({
+        draggable: false
+      });
+	   group2 = new Kinetic.Group({
+        draggable: true /*,
+		dragBoundFunc: function(pos) {
+		var newY = pos.y < 50 ? 50 : pos.y;
+          return {
+             x: this.getAbsolutePosition().x,
+            y: newY
+          }
+        }*/
+      });
+	  var group3 = new Kinetic.Group({
+        draggable: false
+      });
+	  group4 = new Kinetic.Group({
+        draggable: true /*,
+		dragBoundFunc: function(pos) {
+		var newY = pos.y < 40 ? 40 : pos.y;
+          return {
+             x: this.getAbsolutePosition().x,
+            y: newY
+          }
+        }*/
+      });
+	  
+	var simpleText1 = new Kinetic.Text({
+					x:  a1,
+					y:  b4+5,
+					text: 'D',
+					fontSize: 12,
+					fontFamily: 'Calibri',
+					fill: 'green'
+					});
+	var simpleText2 = new Kinetic.Text({
+					x:  a1+5,
+					y:  b1-15,
+					text: 'A',
+					fontSize: 12,
+					fontFamily: 'Calibri',
+					fill: 'green'
+					});
+var simpleText3 = new Kinetic.Text({
+					x:  a2-10,
+					y:  b2-15,
+					text: 'B',
+					fontSize: 12,
+					fontFamily: 'Calibri',
+					fill: 'green'
+					});
+var simpleText4 = new Kinetic.Text({
+					x:  a3-15,
+					y:  b4+8,
+					text: 'C',
+					fontSize:12,
+					fontFamily: 'Calibri',
+					fill: 'green'
+					});					
+	smallquadriletral1 = new Kinetic.Shape({
+       			sceneFunc: function(context) {
+          		context.beginPath();
+          		context.moveTo(M41, M42);
+        		context.lineTo(CL1,CL2);
+          		context.quadraticCurveTo(M31, M32,M31,M32);
+				context.moveTo(M31, M32);
+        		context.lineTo(a4, b4);
+          		context.quadraticCurveTo(M41, M42,M41,M42);
+          		context.closePath();
+          		// KineticJS specific context method
+          		context.fillStrokeShape(this);
+			},
+			fill: '#CCFF33',
+			opacity:0.5,
+			});
+				smallquadriletral2 = new Kinetic.Shape({
+       			sceneFunc: function(context) {
+          		context.beginPath();
+          		context.moveTo(a1, b1);
+        		context.lineTo(M11,M12);
+          		context.quadraticCurveTo(CL1, CL2,CL1,CL2);
+				context.moveTo(CL1, CL2);
+        		context.lineTo(M41, M42);
+          		context.quadraticCurveTo(a1,b1,a1,b1);
+          		context.closePath();
+          		// KineticJS specific context method
+          		context.fillStrokeShape(this);
+				
+			},
+			fill: '#CCFF33',
+			opacity:0.5
+			
+			
+			});
+			smallquadriletral3 = new Kinetic.Shape({
+       			sceneFunc: function(context) {
+          		context.beginPath();
+          		context.moveTo(M11,M12);
+        		context.lineTo(a2,b2);
+          		context.quadraticCurveTo(M21,M22,M21,M22);
+				context.moveTo(M21,M22);
+        		context.lineTo(CL1,CL2);
+          		context.quadraticCurveTo(M11,M12,M11,M12);
+          		context.closePath();
+          		// KineticJS specific context method
+          		context.fillStrokeShape(this);
+			},
+			fill: '#CCFF33',
+			opacity:0.5,
+			
+		
+			});
+			
+			smallquadriletral4 = new Kinetic.Shape({
+       			sceneFunc: function(context) {
+          		context.beginPath();
+          		context.moveTo(CL1,CL2);
+        		context.lineTo(M21,M22);
+          		context.quadraticCurveTo(a3,b3,a3,b3);
+				context.moveTo(a3,b3);
+        		context.lineTo(M31,M32);
+          		context.quadraticCurveTo(CL1,CL2,CL1,CL2);
+          		context.closePath();
+          		// KineticJS specific context method
+          		context.fillStrokeShape(this);
+			},
+			fill: '#CCFF33',
+			opacity:0.5,
+			
+			
+			
+			
+			});
+			
+					
+			group1.add(smallquadriletral1);
+			group1.add(simpleText1);
+				group2.add(smallquadriletral2);
+			group2.add(simpleText2);
+				group3.add(smallquadriletral3);
+			group3.add(simpleText3);
+				group4.add(smallquadriletral4);
+			group4.add(simpleText4);
+			layer2.add(sheet);
+			layer2.add(group1);
+			layer2.add(group2);
+			layer2.add(group3);
+			layer2.add(group4);
+			
+			stage.add(layer2);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+	}
+	
+	
+	function drawQuadiretral()
+	{
+		
+			tricount++;
+			
+			triangle1 = new Kinetic.Shape({
+       			sceneFunc: function(context) {
+          		context.beginPath();
+          		context.moveTo(a1, b1);
+        		context.lineTo(a2, b2);
+          		context.quadraticCurveTo(a3, b3,a3,b3);
+				context.moveTo(a3, b3);
+        		context.lineTo(a4, b4);
+          		context.quadraticCurveTo(a1, b1,a1,b1);
+          		context.closePath();
+          		// KineticJS specific context method
+          		context.fillStrokeShape(this);
+			},
+			fill: '#82CAFF',
+			opacity:0.5,
+			
+			draggable :false
+			});
+			layer2.add(triangle1);
+			stage.add(layer2);
+		
+		
+	}
+	
+	
+	function hideElem()
+	{
+		document.getElementById("menu1").style.visibility="visible";
+		document.getElementById("instruction").style.visibility="hidden";
+		document.getElementById("next").style.visibility="hidden";
+	}
+	function hideElem1()
+	{
+		document.getElementById("menu1").style.visibility="hidden";
+		document.getElementById("instruction").style.visibility="hidden";
+		document.getElementById("next").style.visibility="hidden";
+		document.getElementById("instruction").style.visibility="hidden";
+		document.getElementById("next").style.visibility="hidden";
+		
+
+	}
+	function Instruction()
+	{
+				document.getElementById("next").style.visibility="visible";
+				document.getElementById("instruction").style.visibility="hidden";
+		var complexText = new Kinetic.Text({
+        x: 30,
+        y: 350,
+        text: ' 1) Now mark four points on the circumference of Circle to get chords AB,BC,CD,DA.\n 2)Now Click on Next Button',
+		fontSize: 16.5,
+        fontFamily: 'Calibri',
+        fill: '#900',
+        width:250,
+        padding: 10,
+       
+      });
+	   var rect = new Kinetic.Rect({
+        x: 10,
+        y: 350,
+        stroke: '#555',
+        strokeWidth: 5,
+        fill: 'white',
+        width: 300,
+        height:200,
+        shadowColor: 'black',
+        shadowBlur: 10,
+        shadowOffset: {x:10,y:10},
+        shadowOpacity: 0.2,
+        cornerRadius: 10
+      });
+			layer2.add(rect);
+			layer2.add(complexText);
+			
+			stage.add(layer2);
+	
+}
+	function drawcircle()
+	{
+		if(j==1)
+		{
+			rad=prompt("Please enter Radius between 50 to 100");
+			if(rad<101 && rad>49)
+			{
+				document.getElementById("instruction").style.visibility="visible";
+				document.getElementById("drcircle").style.visibility="hidden";
+			flag++;
+			layer2= new Kinetic.Layer();
+			layer3= new Kinetic.Layer();
+			var circle = new Kinetic.Circle
+			({
+			x: rect1.getWidth() / 2,
+			y: rect1.getHeight() / 2,
+			radius: rad,
+			fill: 'red',
+			stroke: 'black',
+			strokeWidth: 4,
+	
+			});
+			var circle1 = new Kinetic.Circle
+			({
+			x: rect1.getWidth() / 2,
+			y: rect1.getHeight() / 2,
+			radius: rad-2,
+			fill: 'red'
+			});
+	
+			centre1 = new Kinetic.Circle
+			({
+			x:rect1.getWidth()/2,
+			y:rect1.getHeight()/2,
+			fill: 'black',
+			radius:3,
+			strokeWidth: 3,
+			});
+			var centreText1 = new Kinetic.Text({
+					x:  140,
+					y:  90,
+					text: 'O',
+					fontSize: 20,
+					fontFamily: 'Calibri',
+					fill: 'yellow'
+					});
+					 var complexText = new Kinetic.Text({
+        x: 30,
+        y: 350,
+        text: '1) First we have created a red circle.\n 2) Red circle with center O is pasted on white coloured rectangle.\n 3) Now Click On Instruction Button',
+				
+        fontSize: 18,
+        fontFamily: 'Calibri',
+        fill: '#500',
+        width:250,
+        padding: 10,
+        //align: 'center'
+      });
+	   var rect = new Kinetic.Rect({
+        x: 10,
+        y: 350,
+        stroke: '#555',
+        strokeWidth: 5,
+        fill: '#ddd',
+        width: 280,
+        height:160,
+        shadowColor: 'black',
+        shadowBlur: 10,
+        shadowOffset: {x:10,y:10},
+        shadowOpacity: 0.2,
+        cornerRadius: 10
+      });
+		var group = new Kinetic.Group
+			({
+			draggable: false
+			}); 
+	  
+			group.add(circle);
+			group.add(circle1);
+			group.add(centre1);
+			group.add(centreText1);
+			layer2.add(group);
+			layer2.add(rect);
+      layer2.add(complexText);
+			stage.add(layer2);
+			j++;
+			}
+			else
+			{
+				alert("Please Enter radius between 50-100!");
+			}
+		
+		circle.on('click', function() 
+			{	
+				if(count1==0)
+				{  
+					var bgxy = stage.getPosition();
+					var a = event.pageX - stage.getContainer().offsetLeft - bgxy.x-220;
+					var b = event.pageY - stage.getContainer().offsetTop - bgxy.y;
+					a1=a;
+					b1=b;
+					point0 = new Kinetic.Circle({
+					x: a,
+					y: b,
+					fill: 'yellow',
+					radius:3,
+					strokeWidth: 3,
+					});
+					
+					var simpleText0 = new Kinetic.Text({
+					x:  a-10,
+					y:  b+5,
+					text: 'A',
+					fontSize: 20,
+					fontFamily: 'Calibri',
+					fill: 'yellow'
+					});	
+				if(b>125 && count<=1 && a<150)
+					{
+	  
+						layer2.add(point0);
+						layer2.add(simpleText0);
+						stage.add(layer2);
+						count1++;
+						count++;
+						}
+						else
+					{
+						alert("Select first from 3rd quadrant ");
+					}
+						
+		}
+else if(count1==1)
+				{  
+					var bgxy = stage.getPosition();
+					var a = event.pageX - stage.getContainer().offsetLeft - bgxy.x-220;
+					var b = event.pageY - stage.getContainer().offsetTop - bgxy.y;
+					a2=a;
+					b2=b;
+					point1 = new Kinetic.Circle({
+					x: a,
+					y: b,
+					fill: 'yellow',
+					radius:3,
+					strokeWidth: 3,
+					});
+					
+					var simpleText1 = new Kinetic.Text({
+					x:  a-10,
+					y:  b+5,
+					text: 'B',
+					fontSize: 20,
+					fontFamily: 'Calibri',
+					fill: 'yellow'
+					});	
+				
+	  if(b>125 && count<=1 && a>150)
+					{
+	  
+						layer2.add(point1);
+						layer2.add(simpleText1);
+						stage.add(layer2);
+						count1++;
+						count++;
+						}
+						else
+						{
+						alert("Select from 4th quadrant ");
+						}
+		}
+		else if(count1==2)
+				{  
+					var bgxy = stage.getPosition();
+					var a = event.pageX - stage.getContainer().offsetLeft - bgxy.x-220;
+					var b = event.pageY - stage.getContainer().offsetTop - bgxy.y;
+					a3=a;
+					b3=b;
+					point2 = new Kinetic.Circle({
+					x: a,
+					y: b,
+					fill: 'yellow',
+					radius:3,
+					strokeWidth: 3,
+					});
+					
+					var simpleText2 = new Kinetic.Text({
+					x:  a+5,
+					y:  b-15,
+					text: 'C',
+					fontSize: 20,
+					fontFamily: 'Calibri',
+					fill: 'yellow'
+					});	
+				
+	  if(b<125 && count<=3 && a>150)
+					{
+	  
+						layer2.add(point2);
+						layer2.add(simpleText2);
+						stage.add(layer2);
+						count1++;
+						count++;
+					}
+		else
+						{
+						alert("Select from 1st quadrant ");
+						}
+		
+		}
+		else if(count1==3)
+				{  
+					var bgxy = stage.getPosition();
+					var a = event.pageX - stage.getContainer().offsetLeft - bgxy.x-220;
+					var b = event.pageY - stage.getContainer().offsetTop - bgxy.y;
+					a4=a;
+					b4=b;
+					point3 = new Kinetic.Circle({
+					x: a,
+					y: b,
+					fill: 'yellow',
+					radius:3,
+					strokeWidth: 3,
+					});
+					
+					var simpleText3 = new Kinetic.Text({
+					x:  a-15,
+					y:  b-20,
+					text: 'D',
+					fontSize: 20,
+					fontFamily: 'Calibri',
+					fill: 'yellow'
+					});	
+				if(b<125 && count<=4 && a<150)
+					{
+	  
+	  
+						layer2.add(point3);
+						layer2.add(simpleText3);
+						stage.add(layer2);
+						
+						count1++;
+						count++;
+					}
+					else
+						{
+							alert("Select from 1st quadrant");
+						}
+						count1++;
+			}
+			
+			point0.on('click', function() 
+			{
+			
+			flag++;
+			var line = new Kinetic.Line({
+			points: [a1,b1,a2,b2],
+			stroke: 'black',
+			strokeWidth: 2,
+			lineCap: 'round',
+			lineJoin: 'round'
+			});
+			layer2.add(line);
+			stage.add(layer2);
+			});
+			point1.on('click', function() 
+			{
+			
+			flag++;
+			var line = new Kinetic.Line({
+			points: [a2,b2,a3,b3],
+			stroke: 'black',
+			strokeWidth: 2,
+			lineCap: 'round',
+			lineJoin: 'round'
+			});
+			layer2.add(line);
+			stage.add(layer2);
+			});
+			point2.on('click', function() 
+			{
+			
+			flag++;
+			var line = new Kinetic.Line({
+			points: [a3,b3,a4,b4],
+			stroke: 'black',
+			strokeWidth: 2,
+			lineCap: 'round',
+			lineJoin: 'round'
+			});
+			layer2.add(line);
+			stage.add(layer2);
+			});
+			point3.on('click', function() 
+			{
+			
+			flag++;
+			var line = new Kinetic.Line({
+			points: [a4,b4,a1,b1],
+			stroke: 'black',
+			strokeWidth: 2,
+			lineCap: 'round',
+			lineJoin: 'round'
+			});
+			layer2.add(line);
+			stage.add(layer2);
+			});
+			
+		
+});
+}
+}
+		</script>
+	</body>
+</html>	
